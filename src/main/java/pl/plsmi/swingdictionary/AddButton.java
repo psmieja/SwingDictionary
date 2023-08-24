@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class EditButton extends JButton implements ActionListener {
+public class AddButton extends JButton implements ActionListener {
 
     MutableInt currentlyEditedIdx;
     WordField wordField;
@@ -12,33 +12,25 @@ public class EditButton extends JButton implements ActionListener {
     JList<DictionaryEntry> dictionaryJList;
     DefaultListModel<DictionaryEntry> dictionaryListModel;
 
-    EditButton(
-            JList<DictionaryEntry> dictionaryJList,
-            DefaultListModel<DictionaryEntry> dictionaryListModel,
+    AddButton(
+            DictionaryListModel dictionaryListModel,
             MutableInt currentlyEditedIdx,
             WordField wordField,
             DefinitionField definitionField) {
 
-        this.dictionaryJList = dictionaryJList;
         this.dictionaryListModel = dictionaryListModel;
         this.currentlyEditedIdx = currentlyEditedIdx;
         this.wordField = wordField;
         this.definitionField = definitionField;
 
-        this.setText("Edit");
-
+        this.setText("Add");
         this.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        currentlyEditedIdx.setValue(dictionaryJList.getSelectedIndex());
-        wordField.setText(
-                dictionaryListModel.getElementAt(currentlyEditedIdx.getValue()).word
-        );
-        definitionField.setText(
-                dictionaryListModel.getElementAt(currentlyEditedIdx.getValue()).definition
-        );
+        currentlyEditedIdx.setValue(-2); // -1 means no selected item
+        wordField.setText("");
+        definitionField.setText("");
     }
-
 }

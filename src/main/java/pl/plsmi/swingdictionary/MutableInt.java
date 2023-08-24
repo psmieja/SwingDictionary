@@ -17,4 +17,12 @@ class MutableInt {
     public void setValue(int value) {
         this.value = value;
     }
+
+    public boolean equals(MutableInt other) {
+        return (this.value == other.getValue());
+    }
+
+    public boolean equals(int other) {
+        return (this.value == other);
+    }
 }

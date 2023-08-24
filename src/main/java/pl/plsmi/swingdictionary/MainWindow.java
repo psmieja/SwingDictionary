@@ -13,11 +13,15 @@ public class MainWindow extends JFrame {
     RightPanel rightPanel;
 
     JList<DictionaryEntry> dictionaryJList;
-    DefaultListModel<DictionaryEntry> dictionaryListModel;
+    DictionaryListModel dictionaryListModel;
 
-    JButton editButton;
+    EditButton editButton;
+    AddButton addButton;
+
+    WordField wordField;
     DefinitionField definitionField;
-    JButton saveButton;
+    SaveButton saveButton;
+
     MutableInt currentlyEditedIdx;
 
     MainWindow() {
@@ -29,22 +33,28 @@ public class MainWindow extends JFrame {
         leftPanel = new LeftPanel();
         rightPanel = new RightPanel();
 
-        dictionaryListModel = new DefaultListModel<DictionaryEntry>();
+        dictionaryListModel = new DictionaryListModel();
         dictionaryListModel.addElement(new DictionaryEntry("potato", "ziemniak"));
         dictionaryListModel.addElement(new DictionaryEntry("bird", "ptak"));
         dictionaryListModel.addElement(new DictionaryEntry("cat", "kot"));
         dictionaryListModel.addElement(new DictionaryEntry("dog", "pies"));
+        dictionaryListModel.sort();
+
         dictionaryJList = new JList<DictionaryEntry>(dictionaryListModel);
         MutableInt currentlyEditedIdx = new MutableInt();
 
+        wordField = new WordField();
         definitionField = new DefinitionField();
 
-        editButton = new EditButton(dictionaryJList, dictionaryListModel, currentlyEditedIdx, definitionField);
-        saveButton = new SaveButton(dictionaryListModel, currentlyEditedIdx, definitionField);
+        editButton = new EditButton(dictionaryJList, dictionaryListModel, currentlyEditedIdx, wordField, definitionField);
+        saveButton = new SaveButton(dictionaryListModel, currentlyEditedIdx, wordField, definitionField);
+        addButton  = new AddButton(dictionaryListModel, currentlyEditedIdx, wordField, definitionField);
 
         leftPanel.add(dictionaryJList);
         leftPanel.add(editButton);
+        leftPanel.add(addButton);
 
+        rightPanel.add(wordField);
         rightPanel.add(definitionField);
         rightPanel.add(saveButton);
 

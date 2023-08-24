@@ -3,23 +3,27 @@ package pl.plsmi.swingdictionary;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class SaveButton extends JButton implements ActionListener {
 
     MutableInt currentlyEditedIdx;
+    WordField wordField;
     DefinitionField definitionField;
 //    JList<DictionaryEntry> dictionaryJList;
-    DefaultListModel<DictionaryEntry> dictionaryListModel;
+    DictionaryListModel dictionaryListModel;
 
     SaveButton(
 //            JList<DictionaryEntry> dictionaryJList,
-            DefaultListModel<DictionaryEntry> dictionaryListModel,
+            DictionaryListModel dictionaryListModel,
             MutableInt currentlyEditedIdx,
+            WordField wordField,
             DefinitionField definitionField) {
 
 //        this.dictionaryJList = dictionaryJList;
         this.dictionaryListModel = dictionaryListModel;
         this.currentlyEditedIdx = currentlyEditedIdx;
+        this.wordField = wordField;
         this.definitionField = definitionField;
 
         this.setText("Save");
@@ -29,8 +33,19 @@ public class SaveButton extends JButton implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        dictionaryListModel.getElementAt(currentlyEditedIdx.getValue()).definition = definitionField.getText();
-        System.out.println(currentlyEditedIdx + " " + definitionField.getText());
+        if (currentlyEditedIdx.equals(-2)) { // new word
+            System.out.println("new word added");
+            dictionaryListModel.addElement(
+                    new DictionaryEntry(
+                            wordField.getText(),
+                            definitionField.getText())
+            );
+        } else { // edited existing word
+            dictionaryListModel.getElementAt(currentlyEditedIdx.getValue()).word = wordField.getText();
+            dictionaryListModel.getElementAt(currentlyEditedIdx.getValue()).definition = definitionField.getText();
+        }
+        dictionaryListModel.sort();
+        currentlyEditedIdx = new MutableInt(dictionaryListModel.size() - 1);
     }
 
 }
