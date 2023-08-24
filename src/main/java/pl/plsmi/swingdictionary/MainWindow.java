@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 public class MainWindow extends JFrame {
 
+    MenuBar menuBar;
     LeftPanel leftPanel;
     RightPanel rightPanel;
 
@@ -29,6 +30,11 @@ public class MainWindow extends JFrame {
         this.setSize(800,500);
         this.setLayout(new BorderLayout());
         this.setVisible(true);
+
+        //================================= menu
+        this.menuBar = new MenuBar();
+        this.setJMenuBar(menuBar);
+        //================================= contents
 
         leftPanel = new LeftPanel();
         rightPanel = new RightPanel();
@@ -55,6 +61,7 @@ public class MainWindow extends JFrame {
         leftPanel.add(addButton);
 
         rightPanel.add(wordField);
+        rightPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         rightPanel.add(definitionField);
         rightPanel.add(saveButton);
 

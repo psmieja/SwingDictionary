@@ -10,17 +10,14 @@ public class SaveButton extends JButton implements ActionListener {
     MutableInt currentlyEditedIdx;
     WordField wordField;
     DefinitionField definitionField;
-//    JList<DictionaryEntry> dictionaryJList;
     DictionaryListModel dictionaryListModel;
 
     SaveButton(
-//            JList<DictionaryEntry> dictionaryJList,
             DictionaryListModel dictionaryListModel,
             MutableInt currentlyEditedIdx,
             WordField wordField,
             DefinitionField definitionField) {
 
-//        this.dictionaryJList = dictionaryJList;
         this.dictionaryListModel = dictionaryListModel;
         this.currentlyEditedIdx = currentlyEditedIdx;
         this.wordField = wordField;
