@@ -15,11 +15,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
         this.fileMenu = new JMenu("File");
         this.loadFileMenuItem = new JMenuItem("Load file");
         this.dictionaryListModel = dictionaryListModel;
-
         this.loadFileMenuItem.addActionListener(this);
-
         fileMenu.add(loadFileMenuItem);
-
         this.add(fileMenu);
     }
 

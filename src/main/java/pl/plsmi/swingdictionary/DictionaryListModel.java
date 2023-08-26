@@ -14,15 +14,6 @@ import java.util.List;
 
 public class DictionaryListModel extends DefaultListModel<DictionaryEntry> {
 
-//    DictionaryListModel(File file) {
-//        try (FileReader fileReader = new FileReader(file)) {
-//            CSVReader csvReader = new CSVReader(fileReader);
-//
-//        } catch (IOException e) {
-//            System.out.println("Unable to load file");
-//        }
-//    }
-
     public void sort() {
         //seems like a very inefficient solution TODO: try to make it better...
         List<DictionaryEntry> elementList = Collections.list(this.elements());
@@ -42,7 +33,7 @@ public class DictionaryListModel extends DefaultListModel<DictionaryEntry> {
             while ((line = csvReader.readNext()) != null) {
                 this.addElement(new DictionaryEntry(line[0], line[1]));
             }
-
+        // TODO: better exception handling
         } catch (IOException e) {
             System.out.println("Unable to load file");
         } catch (CsvValidationException e) {

@@ -1,12 +1,7 @@
 package pl.plsmi.swingdictionary;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
 
 public class MainWindow extends JFrame {
 
@@ -34,23 +29,11 @@ public class MainWindow extends JFrame {
 
         this.dictionaryListModel = new DictionaryListModel();
 
-        //================================= menu
-        this.menuBar = new MenuBar(this.dictionaryListModel);
-        this.setJMenuBar(menuBar);
-        //================================= contents
-
+        menuBar = new MenuBar(this.dictionaryListModel);
         leftPanel = new LeftPanel();
         rightPanel = new RightPanel();
-
-
-//        dictionaryListModel.addElement(new DictionaryEntry("potato", "ziemniak"));
-//        dictionaryListModel.addElement(new DictionaryEntry("bird", "ptak"));
-//        dictionaryListModel.addElement(new DictionaryEntry("cat", "kot"));
-//        dictionaryListModel.addElement(new DictionaryEntry("dog", "pies"));
-//        dictionaryListModel.sort();
-
         dictionaryJList = new JList<DictionaryEntry>(dictionaryListModel);
-        MutableInt currentlyEditedIdx = new MutableInt();
+        currentlyEditedIdx = new MutableInt();
 
         wordField = new WordField();
         definitionField = new DefinitionField();
@@ -68,6 +51,7 @@ public class MainWindow extends JFrame {
         rightPanel.add(definitionField);
         rightPanel.add(saveButton);
 
+        this.setJMenuBar(menuBar);
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.EAST);
     }

@@ -9,7 +9,6 @@ public class LeftPanel extends JPanel{
     LeftPanel() {
         this.setBackground(Color.LIGHT_GRAY);
         this.setPreferredSize(new Dimension(300,200));
-//        this.setLayout(new BorderLayout());
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     }
