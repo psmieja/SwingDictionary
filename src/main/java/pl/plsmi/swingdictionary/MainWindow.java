@@ -6,6 +6,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class MainWindow extends JFrame {
 
@@ -31,20 +32,22 @@ public class MainWindow extends JFrame {
         this.setLayout(new BorderLayout());
         this.setVisible(true);
 
+        this.dictionaryListModel = new DictionaryListModel();
+
         //================================= menu
-        this.menuBar = new MenuBar();
+        this.menuBar = new MenuBar(this.dictionaryListModel);
         this.setJMenuBar(menuBar);
         //================================= contents
 
         leftPanel = new LeftPanel();
         rightPanel = new RightPanel();
 
-        dictionaryListModel = new DictionaryListModel();
-        dictionaryListModel.addElement(new DictionaryEntry("potato", "ziemniak"));
-        dictionaryListModel.addElement(new DictionaryEntry("bird", "ptak"));
-        dictionaryListModel.addElement(new DictionaryEntry("cat", "kot"));
-        dictionaryListModel.addElement(new DictionaryEntry("dog", "pies"));
-        dictionaryListModel.sort();
+
+//        dictionaryListModel.addElement(new DictionaryEntry("potato", "ziemniak"));
+//        dictionaryListModel.addElement(new DictionaryEntry("bird", "ptak"));
+//        dictionaryListModel.addElement(new DictionaryEntry("cat", "kot"));
+//        dictionaryListModel.addElement(new DictionaryEntry("dog", "pies"));
+//        dictionaryListModel.sort();
 
         dictionaryJList = new JList<DictionaryEntry>(dictionaryListModel);
         MutableInt currentlyEditedIdx = new MutableInt();

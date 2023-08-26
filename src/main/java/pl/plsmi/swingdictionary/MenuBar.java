@@ -9,10 +9,12 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
     JMenu fileMenu;
     JMenuItem loadFileMenuItem;
+    DictionaryListModel dictionaryListModel;
 
-    MenuBar() {
+    MenuBar(DictionaryListModel dictionaryListModel) {
         this.fileMenu = new JMenu("File");
         this.loadFileMenuItem = new JMenuItem("Load file");
+        this.dictionaryListModel = dictionaryListModel;
 
         this.loadFileMenuItem.addActionListener(this);
 
@@ -28,7 +30,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
             int response = fileChooser.showOpenDialog(null);
             if (response == JFileChooser.APPROVE_OPTION) {
                 File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
-                System.out.println(file);
+                this.dictionaryListModel.setContentsFromFile(file);
             }
         }
     }
