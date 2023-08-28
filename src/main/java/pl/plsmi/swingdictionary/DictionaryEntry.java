@@ -18,4 +18,8 @@ public class DictionaryEntry implements Comparable<DictionaryEntry>{
         return this.word;
     }
 
+    public String[] toStringArray() {
+        return new String[]{this.word, this.definition};
+    }
+
 }

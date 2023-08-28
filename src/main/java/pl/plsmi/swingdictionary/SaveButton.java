@@ -42,7 +42,6 @@ public class SaveButton extends JButton implements ActionListener {
             dictionaryListModel.getElementAt(currentlyEditedIdx.getValue()).definition = definitionField.getText();
         }
         dictionaryListModel.sort();
-        currentlyEditedIdx = new MutableInt(dictionaryListModel.size() - 1);
+        currentlyEditedIdx.setValue(dictionaryListModel.size() - 1);
     }
-
 }

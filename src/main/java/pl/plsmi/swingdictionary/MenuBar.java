@@ -9,14 +9,29 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
     JMenu fileMenu;
     JMenuItem loadFileMenuItem;
+    JMenuItem saveFileMenuItem;
+    JMenuItem saveAsFileMenuItem;
     DictionaryListModel dictionaryListModel;
+    File currentFile;
 
-    MenuBar(DictionaryListModel dictionaryListModel) {
+    MenuBar(DictionaryListModel dictionaryListModel, File currentFile) {
         this.fileMenu = new JMenu("File");
-        this.loadFileMenuItem = new JMenuItem("Load file");
+
+        this.loadFileMenuItem = new JMenuItem("Load from CSV");
+        this.saveFileMenuItem = new JMenuItem("Save");
+        this.saveAsFileMenuItem = new JMenuItem("Save as");
+
+        this.currentFile = currentFile;
         this.dictionaryListModel = dictionaryListModel;
+
         this.loadFileMenuItem.addActionListener(this);
+        this.saveFileMenuItem.addActionListener(this);
+        this.saveAsFileMenuItem.addActionListener(this);
+
         fileMenu.add(loadFileMenuItem);
+        fileMenu.add(saveFileMenuItem);
+        fileMenu.add(saveAsFileMenuItem);
+
         this.add(fileMenu);
     }
 
@@ -26,9 +41,23 @@ public class MenuBar extends JMenuBar implements ActionListener {
             JFileChooser fileChooser = new JFileChooser();
             int response = fileChooser.showOpenDialog(null);
             if (response == JFileChooser.APPROVE_OPTION) {
-                File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
-                this.dictionaryListModel.setContentsFromFile(file);
+                currentFile = new File(fileChooser.getSelectedFile().getAbsolutePath());
+                this.dictionaryListModel.setContentsFromFile(currentFile);
             }
+        } else if (event.getSource() == this.saveFileMenuItem) {
+            if (currentFile == null) {
+                JFileChooser fileChooser = new JFileChooser();
+                if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    currentFile = fileChooser.getSelectedFile();
+                }
+            }
+            this.dictionaryListModel.saveContentsToFile(currentFile);
+        } else if (event.getSource() == this.saveAsFileMenuItem) {
+            JFileChooser fileChooser = new JFileChooser();
+            if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                currentFile = fileChooser.getSelectedFile();
+            }
+            this.dictionaryListModel.saveContentsToFile(currentFile);
         }
     }
 }

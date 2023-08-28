@@ -2,6 +2,7 @@ package pl.plsmi.swingdictionary;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class MainWindow extends JFrame {
 
@@ -20,6 +21,7 @@ public class MainWindow extends JFrame {
     SaveButton saveButton;
 
     MutableInt currentlyEditedIdx;
+    File currentFile;
 
     MainWindow() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,7 +31,8 @@ public class MainWindow extends JFrame {
 
         this.dictionaryListModel = new DictionaryListModel();
 
-        menuBar = new MenuBar(this.dictionaryListModel);
+        currentFile = null;
+        menuBar = new MenuBar(this.dictionaryListModel, this.currentFile);
         leftPanel = new LeftPanel();
         rightPanel = new RightPanel();
         dictionaryJList = new JList<DictionaryEntry>(dictionaryListModel);
