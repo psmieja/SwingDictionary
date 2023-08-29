@@ -6,7 +6,7 @@ import java.awt.*;
 public class WordField extends JTextArea {
 
     WordField() {
-        this.setSize(200,10);
+//        this.setSize(200,10);
     }
 
 }

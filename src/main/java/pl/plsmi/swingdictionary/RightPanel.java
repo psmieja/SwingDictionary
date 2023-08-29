@@ -7,7 +7,6 @@ public class RightPanel extends JPanel {
 
     RightPanel() {
         this.setBackground(Color.GRAY);
-        this.setPreferredSize(new Dimension(500,200));
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//        this.setPreferredSize(new Dimension(500,200));
     }
 }

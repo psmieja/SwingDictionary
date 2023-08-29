@@ -6,8 +6,8 @@ import java.awt.*;
 public class DefinitionField extends JTextArea {
 
     DefinitionField() {
-        this.setPreferredSize(new Dimension(200,200));
-        this.setLineWrap(true);
+//        this.setSize(200,200);
+//        this.setLineWrap(true);
     }
 
 }
