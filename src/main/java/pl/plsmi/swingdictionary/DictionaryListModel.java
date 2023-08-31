@@ -6,11 +6,33 @@ import com.opencsv.exceptions.CsvValidationException;
 
 import javax.swing.*;
 import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Dictionary;
 import java.util.List;
 
 public class DictionaryListModel extends DefaultListModel<DictionaryEntry> {
+
+    ArrayList<DictionaryEntry> allContents;
+
+    DictionaryListModel() {
+        this.allContents = new ArrayList<DictionaryEntry>();
+    }
+
+    public void filter(String filter) {
+        for (DictionaryEntry entry : allContents) {
+            if (entry.word.toLowerCase().contains(filter.toLowerCase())) {
+                if (!this.contains(entry)) {
+                    this.addElement(entry);
+                }
+            } else {
+                if (this.contains(entry)) {
+                    this.removeElement(entry);
+                }
+            }
+        }
+    }
 
     public void sort() {
         //seems like a very inefficient solution TODO: try to make it better...
@@ -25,11 +47,18 @@ public class DictionaryListModel extends DefaultListModel<DictionaryEntry> {
 
     // TODO: better exception handling
     public void setContentsFromFile(File file) {
+        // first remove old contents
+        // TODO: add warning if unsaved changes
+        this.allContents.clear();
+        this.clear();
+        // then add new ones
         try (FileReader fileReader = new FileReader(file)) {
             CSVReader csvReader = new CSVReader(fileReader);
             String[] line;
             while ((line = csvReader.readNext()) != null) {
-                this.addElement(new DictionaryEntry(line[0], line[1]));
+                DictionaryEntry newEntry = new DictionaryEntry(line[0], line[1]);
+                this.allContents.add(newEntry); // we add to the arraylist of unfiltered contents
+                this.addElement(newEntry); // and to the currently displayed contents
             }
         } catch (IOException e) {
             System.out.println("Unable to load file");

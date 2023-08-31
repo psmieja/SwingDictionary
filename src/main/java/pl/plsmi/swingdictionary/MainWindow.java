@@ -11,6 +11,7 @@ public class MainWindow extends JFrame {
     LeftPanel leftPanel;
     RightPanel rightPanel;
 
+    SearchBox searchBox;
     JList<DictionaryEntry> dictionaryJList;
     DictionaryListModel dictionaryListModel;
 
@@ -36,15 +37,20 @@ public class MainWindow extends JFrame {
         currentFile = null;
         currentlyEditedIdx = new MutableInt();
 
+        searchBox = new SearchBox(dictionaryListModel);
+        searchBox.setBounds(5,5,200,25);
+        searchBox.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+        this.add(searchBox);
+
         dictionaryJList = new JList<DictionaryEntry>(dictionaryListModel);
-        dictionaryJList.setBounds(5,5,200,300);
+        dictionaryJList.setBounds(5,35,200,300);
         dictionaryJList.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
         dictionaryJList.setLayoutOrientation(JList.VERTICAL);
         this.add(dictionaryJList);
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(dictionaryJList);
-        scrollPane.setBounds(5,5,200,300);
+        scrollPane.setBounds(5,35,200,300);
 //        scrollPane.setBounds(205,5,10,300);
         this.add(scrollPane);
 
@@ -62,11 +68,11 @@ public class MainWindow extends JFrame {
         this.add(definitionField);
 
         editButton = new EditButton(dictionaryJList, dictionaryListModel, currentlyEditedIdx, wordField, definitionField);
-        editButton.setBounds(5,305,100,50);
+        editButton.setBounds(5,340,100,50);
         this.add(editButton);
 
         addButton  = new AddButton(dictionaryListModel, currentlyEditedIdx, wordField, definitionField);
-        addButton.setBounds(105,305,100,50);
+        addButton.setBounds(105,340,100,50);
         this.add(addButton);
 
         saveButton = new SaveButton(dictionaryListModel, currentlyEditedIdx, wordField, definitionField);
